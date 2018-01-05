@@ -8,7 +8,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseForbidden
 
 from forms import NewMetricForm, NewEntryForm
-from models import Metrics, Entries
+from models import Metrics, Entries, Daily
 
 
 @login_required
@@ -43,12 +43,17 @@ def showmetric(request, pk):
 			e = form.save(commit=False)
 			e.metric = m
 			e.save()
+
+			d, created = Daily.objects.get_or_create(metric=m, day=e.day, defaults={'count':0})
+			d.count += e.value
+			d.save()
 	else:
 		form = NewEntryForm()
 
 	entries = Entries.objects.filter(metric=m).order_by('day')
+	days = Daily.objects.filter(metric=m).order_by('day')
 
-	return render(request, 'metrics/showmetric.html', {'form': form, 'entries':entries})
+	return render(request, 'metrics/showmetric.html', {'form': form, 'entries':entries, 'days':days, 'metric':m})
 
 @login_required
 def allmetrics(request):

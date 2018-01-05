@@ -4,7 +4,7 @@
 	<title></title>
 </head>
 <body>
-<h1>New Metric</h1>
+<h1>[M]: {{metric.name}}</h1>
 <form method="POST">
 	{% csrf_token %}
 	{{form.as_p}}
@@ -12,7 +12,11 @@
 </form>
 
 {% for e in entries %}
-	<p>{{e.day}}: {{e.value}}</p>
+	<p>[E] {{e.day}}: {{e.value}}</p>
+{% endfor %}
+
+{% for d in days %}
+	<p>[D] {{d.day}}: {{d.count}}</p>
 {% endfor %}
 </body>
 </html>
