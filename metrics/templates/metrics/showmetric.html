@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
+{% extends "metrics/base.html" %}
+{% block title %}[M]: {{metric.name}}{% endblock %}
+{% block body %}
+
 <h1>[M]: {{metric.name}}</h1>
 <form method="POST">
 	{% csrf_token %}
@@ -18,5 +16,5 @@
 {% for d in days %}
 	<p>[D] {{d.day}}: {{d.count}}</p>
 {% endfor %}
-</body>
-</html>
+
+{% endblock %}

@@ -11,4 +11,4 @@ class NewEntryForm(forms.ModelForm):
 
 	class Meta:
 		model = Entries
-		fields = ('value', 'day',)
+		fields = ('value', 'daydate',)

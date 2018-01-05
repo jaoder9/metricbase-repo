@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-<h1>New Metric</h1>
+{% extends "metrics/base.html" %}
+{% block title %}new metric{% endblock %}
+{% block body %}
 
 <form method="POST">
 	{% csrf_token %}	
@@ -12,5 +8,4 @@
 	<input type="submit" name="submit">
 </form>
 
-</body>
-</html>
+{% endblock %}

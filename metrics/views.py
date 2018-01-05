@@ -41,6 +41,7 @@ def showmetric(request, pk):
 		form = NewEntryForm(request.POST)
 		if form.is_valid():
 			e = form.save(commit=False)
+			e.day = e.daydate.date()
 			e.metric = m
 			e.save()
 

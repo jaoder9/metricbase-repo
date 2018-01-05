@@ -15,7 +15,7 @@ class Metrics(models.Model):
 
 class Entries(models.Model):
 	metric = models.ForeignKey(Metrics)
-	day = models.DateField(default=timezone.now)
+	day = models.DateField()
 	daydate = models.DateTimeField(default=timezone.now)
 	value = models.IntegerField()
 
