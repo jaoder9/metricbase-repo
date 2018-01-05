@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>All metrics</h1>
+{% for m in metrics %}
+	<a href="{% url 'showmetric' m.pk%}">{{m.name}}</a>
+{% endfor %}
+</body>
+</html>
