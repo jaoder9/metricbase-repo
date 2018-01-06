@@ -7,7 +7,7 @@
 
 <div class="allentriesblock">
 	{% for e in entries %}
-		<p>[E] {{e.day}}: {{e.value}}</p>
+		<p>[E] {{e.day|date:"M/d"}}: {{e.value}}</p>
 	{% endfor %}
 </div>
 
@@ -42,7 +42,7 @@ function drawChart() {
 		legend: {position: 'none'},
 		colors:['black'],
 		lineDashStyle: [4, 4],
-		chartArea: {width: '95%', height: '80%' /* leave room for axis label*/},
+		chartArea: {width: '90%', height: '80%' /* leave room for axis label*/},
 		width: '100%',
 		height:'100%',
 	}
