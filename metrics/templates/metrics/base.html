@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	{% load static %}
 	<title>{% block title %}{% endblock %}</title>
+	{% block head %}{% endblock %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/metrics.css' %}">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<div class="navblock">
+	<a href="{% url 'allmetrics' %}">all metrics</a>
+	<a href="{% url 'newmetric' %}">new metric</a>
+</div>
 {% block body %}
 {% endblock %}
 </body>

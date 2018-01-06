@@ -6,9 +6,13 @@ from django.contrib.auth.decorators import login_required
 
 from django.db import IntegrityError
 from django.http import HttpResponseForbidden
+from django.utils import timezone
 
 from forms import NewMetricForm, NewEntryForm
 from models import Metrics, Entries, Daily
+
+from collections import OrderedDict
+from datetime import timedelta
 
 
 @login_required
@@ -53,8 +57,23 @@ def showmetric(request, pk):
 
 	entries = Entries.objects.filter(metric=m).order_by('day')
 	days = Daily.objects.filter(metric=m).order_by('day')
+	today = timezone.now().date()
 
-	return render(request, 'metrics/showmetric.html', {'form': form, 'entries':entries, 'days':days, 'metric':m})
+	data = OrderedDict()
+	try:
+		iterdate = days.first().day
+	except AttributeError:
+		iterdate = today - timedelta(7)
+	while iterdate <= today:
+	
+		try:
+			data[iterdate] = days.get(day = iterdate).count
+		except Daily.DoesNotExist:
+			data[iterdate] = 0
+
+		iterdate += timedelta(1)
+
+	return render(request, 'metrics/showmetric.html', {'form': form, 'entries':entries, 'metric':m, 'data':data})
 
 @login_required
 def allmetrics(request):

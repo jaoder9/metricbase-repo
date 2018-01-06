@@ -1,20 +1,60 @@
 {% extends "metrics/base.html" %}
 {% block title %}[M]: {{metric.name}}{% endblock %}
+{% block head %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{% endblock %}
 {% block body %}
 
-<h1>[M]: {{metric.name}}</h1>
-<form method="POST">
-	{% csrf_token %}
-	{{form.as_p}}
-	<input type="submit">
-</form>
+<div class="allentriesblock">
+	{% for e in entries %}
+		<p>[E] {{e.day}}: {{e.value}}</p>
+	{% endfor %}
+</div>
 
-{% for e in entries %}
-	<p>[E] {{e.day}}: {{e.value}}</p>
-{% endfor %}
+<div class="newentryblock">
+	<h1>[M]: {{metric.name}}</h1>
+	<form method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input type="submit">
+	</form>
+</div>
 
-{% for d in days %}
-	<p>[D] {{d.day}}: {{d.count}}</p>
-{% endfor %}
+<div class="graphblock" id="metricchart"></div>
+
+<script>
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+var array = [
+	{% for d, c in data.items %}
+		['{{d|date:"M/d"}}', {{c}}],
+	{% endfor %}
+];
+
+function drawChart() {
+	var data = new google.visualization.DataTable();
+	data.addColumn('string', 'Date');
+	data.addColumn('number', 'Count');
+	data.addRows(array);
+
+	var options = {
+		legend: {position: 'none'},
+		colors:['black'],
+		lineDashStyle: [4, 4],
+		chartArea: {width: '95%', height: '80%' /* leave room for axis label*/},
+		width: '100%',
+		height:'100%',
+	}
+
+
+	var chart = new google.visualization.LineChart(document.getElementById('metricchart'));
+	chart.draw(data, options);
+}
+
+window.onresize = function(){
+  drawChart();
+};
+</script>
 
 {% endblock %}

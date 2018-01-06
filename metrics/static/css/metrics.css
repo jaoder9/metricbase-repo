@@ -1,0 +1,62 @@
+@font-face {
+	font-family: 'monaco';
+	src: url('../static/fonts/monaco.ttf');
+	src: local('../static/fonts/monaco.ttf')
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'monaco';
+}
+
+body > *{
+	float: left;
+}
+
+.navblock {
+	width: 100vw;
+	height: 5vh;
+}
+
+.allentriesblock {
+	min-height: 95vh;
+	width: 15vw;
+}
+
+.newentryblock{
+	width: 30vw;
+} 
+
+.graphblock {
+	width: 70vw;
+	height: 70vh;
+}
+
+@media only screen and (max-width: 768px) {
+
+body {
+	display: flex;
+	flex-direction: column;
+}
+
+body > *{
+	float: none;
+}
+
+.navblock, .allentriesblock, .newentryblock {
+	width: 90vw;
+	margin: 0 auto;
+}
+
+.graphblock {
+	width: 100vw;
+}
+
+.allentriesblock {
+	order: 9;
+	min-height: 0;
+}
+
+
+}
