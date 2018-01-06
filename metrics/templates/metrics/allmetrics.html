@@ -2,9 +2,16 @@
 {% block title %}all metrics{% endblock %}
 {% block body %}
 
+
+<ul>
 <h1>All metrics</h1>
 {% for m in metrics %}
-	<a href="{% url 'showmetric' m.pk%}">{{m.name}}</a>
+	<li>
+		<h2>
+			<a href="{% url 'showmetric' m.pk%}">{{m.name}}</a>
+		</h2>
+	</li>
 {% endfor %}
+</ul>
 
 {% endblock %}
