@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from django.db import IntegrityError
@@ -74,6 +74,12 @@ def showmetric(request, pk):
 		iterdate += timedelta(1)
 
 	return render(request, 'metrics/showmetric.html', {'form': form, 'entries':entries, 'metric':m, 'data':data})
+
+@login_required
+def deletemetric(request, pk):
+	m = get_object_or_404(Metrics, pk=pk, user=request.user)
+	m.delete()
+	return redirect(allmetrics)
 
 @login_required
 def allmetrics(request):

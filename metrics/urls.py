@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     url(r'^new/$', views.newmetric, name='newmetric'),
     url(r'^metrics/(?P<pk>\d+)/$', views.showmetric, name='showmetric'),
+    url(r'^metrics/(?P<pk>\d+)/delete/$', views.deletemetric, name='deletemetric'),
     url(r'', views.allmetrics, name='index'),
     url(r'^metrics/$', views.allmetrics, name='allmetrics'),
 
