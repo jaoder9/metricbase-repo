@@ -17,9 +17,9 @@ class Entries(models.Model):
 	metric = models.ForeignKey(Metrics)
 	day = models.DateField()
 	daydate = models.DateTimeField(default=timezone.now)
-	value = models.IntegerField()
+	value = models.FloatField()
 
 class Daily(models.Model):
 	day = models.DateField()
 	metric = models.ForeignKey(Metrics)
-	count = models.IntegerField()
+	count = models.FloatField()

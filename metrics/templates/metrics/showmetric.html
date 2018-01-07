@@ -7,7 +7,7 @@
 
 <div class="allentriesblock">
 	{% for e in entries %}
-		<p>[E] {{e.day|date:"M/d"}}: {{e.value}}</p>
+		<p>[E] {{e.day|date:"M/d"}}: {{e.value|floatformat}}</p>
 	{% endfor %}
 	<br>
 	<a class="delete" href="{% url 'deletemetric' metric.pk %}" onclick="return confirm('Delete?');">[X] Delte Metric</a>
